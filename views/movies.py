@@ -58,7 +58,7 @@ class MovieView(Resource):
         getting data from request, transforming data using .json
         adding id to transformed data (as it should not contain id)
         updating required element using method update() of MovieService class object
-        :param mid: element to update id
+        :param bid: element to update id
         :return: response code
         """
         req_json = request.json
@@ -71,7 +71,7 @@ class MovieView(Resource):
         """
         delete movie with required id, using method delete() of MovieService class object
 
-        :param mid: id of required movie to be deleted
+        :param bid: id of required movie to be deleted
         :return: response code
         """
         movie_service.delete(bid)

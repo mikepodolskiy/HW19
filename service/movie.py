@@ -14,7 +14,7 @@ class MovieService:
     def get_one(self, bid):
         """
         applying get_one() method to dao object
-        :param mid: id of required movie
+        :param bid: id of required movie
         :return:
         """
         return self.dao.get_one(bid)
@@ -38,7 +38,6 @@ class MovieService:
     def create(self, movie_d):
         """
         applying a create() method to dao object, using data form response
-        :param data:
         """
         return self.dao.create(movie_d)
 
@@ -47,7 +46,7 @@ class MovieService:
         getting id from data using get method (as data type is dict)
         getting movie to update using get_one with id, that was gotten
         creating fields of movie_to update with info, received from data, using get() method by field names
-        :param data: data from request body
+        :param movie_d: data from request body
         """
         self.dao.update(movie_d)
         return self.dao

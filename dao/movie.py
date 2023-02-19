@@ -13,7 +13,7 @@ class MovieDAO:
     def get_one(self, bid):
         """
         using session, requesting to db to required class, getting data by id
-        :param mid: required id
+        :param bid: required id
         :return: data of element with required id
         """
         return self.session.query(Movie).get(bid)
