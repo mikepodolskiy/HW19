@@ -27,7 +27,7 @@ class DirectorService:
     def create(self, director_d):
         """
         applying  to dao object create() method
-        :param genre_d: genre data
+        :param director_d: genre data
         """
         return self.dao.create(director_d)
 

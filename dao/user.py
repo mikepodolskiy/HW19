@@ -25,6 +25,14 @@ class UserDAO:
         """
         return self.session.query(User).all()
 
+    def get_by_username(self, val):
+        """
+        using session, requesting to db to required class with requested filter
+        :param val: required username
+        :return: required user data
+        """
+        return self.session.query(User).filter(User.username == val).first()
+
     def create(self, user_d):
         """
         creating User class object using data

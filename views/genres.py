@@ -3,6 +3,7 @@ from flask_restx import Resource, Namespace
 from flask import request
 from dao.model.genre import GenreSchema
 from implemented import genre_service
+from service.auth import auth_required, admin_required
 
 # creating namespace
 genre_ns = Namespace('genres')
@@ -11,6 +12,7 @@ genre_ns = Namespace('genres')
 # creating class based views using namespaces for all required endpoints
 @genre_ns.route('/')
 class GenresView(Resource):
+    @auth_required
     def get(self):
         """
         getting all genres list using method get_all of GenreService class object
@@ -21,6 +23,7 @@ class GenresView(Resource):
         res = GenreSchema(many=True).dump(rs)
         return res, 200
 
+    @admin_required
     def post(self):
         """
         getting data from request, transforming data using .json
@@ -34,6 +37,7 @@ class GenresView(Resource):
 
 @genre_ns.route('/<int:rid>')
 class GenreView(Resource):
+    @auth_required
     def get(self, rid):
         """
         getting one genre dict using method get_one of GenreService class object
@@ -44,6 +48,7 @@ class GenreView(Resource):
         sm_d = GenreSchema().dump(r)
         return sm_d, 200
 
+    @admin_required
     def put(self, gid):
         """
         getting data from request, transforming data using .json
@@ -58,6 +63,7 @@ class GenreView(Resource):
         genre_service.update(req_json)
         return "", 204
 
+    @admin_required
     def delete(self, gid):
         """
         delete movie with required id, using method delete() of MovieService class object

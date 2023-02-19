@@ -1,8 +1,10 @@
 # import required libraries and modules
+
 from flask import request
 from flask_restx import Resource, Namespace
 from dao.model.user import UserSchema
 from implemented import user_service
+from service.auth import admin_required
 
 # creating namespace
 user_ns = Namespace('users')
@@ -11,6 +13,7 @@ user_ns = Namespace('users')
 # creating class based views using namespaces for all required endpoints
 @user_ns.route('/')
 class UsersView(Resource):
+    @admin_required
     def get(self):
         """
         getting all users list using method get_all of UserService class object
@@ -32,15 +35,16 @@ class UsersView(Resource):
         return "", 201, {"location": f"/movies/{user.id}"}
 
 
-@user_ns.route('/<int:rid>')
+@user_ns.route('/<int:uid>')
 class UserView(Resource):
-    def get(self, rid):
+    @admin_required
+    def get(self, uid):
         """
         getting one user dict using method get_one of UserService class object
         using serialization with Schema class object
         :return: user with required id - dict
         """
-        r = user_service.get_one(rid)
+        r = user_service.get_one(uid)
         sm_d = UserSchema().dump(r)
         return sm_d, 200
 
@@ -58,6 +62,7 @@ class UserView(Resource):
         user_service.update(req_json)
         return "", 204
 
+    @admin_required
     def delete(self, uid):
         """
         delete movie with required id, using method delete() of MovieService class object
