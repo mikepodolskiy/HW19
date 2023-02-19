@@ -1,3 +1,4 @@
+# import required libraries and modules
 from flask import Flask
 from flask_restx import Api
 
@@ -8,6 +9,7 @@ from views.genres import genre_ns
 from views.movies import movie_ns
 
 
+# creating and configuring app in function
 def create_app(config_object):
     app = Flask(__name__)
     app.config.from_object(config_object)
@@ -15,6 +17,7 @@ def create_app(config_object):
     return app
 
 
+# adding sqlalchemy and rest-x, adding namespaces in function
 def register_extensions(app):
     db.init_app(app)
     api = Api(app)
@@ -23,6 +26,7 @@ def register_extensions(app):
     api.add_namespace(movie_ns)
 
 
+# creating app using function
 app = create_app(Config())
 app.debug = True
 
